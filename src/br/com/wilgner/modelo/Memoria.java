@@ -1,6 +1,7 @@
 package br.com.wilgner.modelo;
 
-import static java.lang.Float.parseFloat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Memoria {
     private String valor = "0";
@@ -9,9 +10,12 @@ public class Memoria {
     private String operacaoPendente;
     private boolean substituir;
 
+    private final List<MemoriaObservador> observadoresList = new ArrayList<>();
+
     public void processarComando(String texto) {
         if (texto.equals("AC")) {
             valor = "0";
+            notificarObservadores();
             valorAnterior = "";
             valorFinal = "";
             operacaoPendente = "";
@@ -21,9 +25,11 @@ public class Memoria {
             } else {
                 valor = "-" + valor;
             }
+            notificarObservadores();
         } else if (texto.equals(",")) {
-            if(!valor.contains(",")) {
+            if (!valor.contains(",")) {
                 valor += ",";
+                notificarObservadores();
             }
         } else if (texto.matches("[0-9]")) {
             if (substituir || valor.equals("0")) {
@@ -32,8 +38,8 @@ public class Memoria {
             } else {
                 valor += texto;
             }
+            notificarObservadores();
         } else if (texto.matches("[+\\-*/]")) {
-
             valorAnterior = valor;
             operacaoPendente = texto;
             substituir = true;
@@ -56,27 +62,49 @@ public class Memoria {
                     case "/":
                         if (num2 == 0) {
                             valor = "Erro";
+                            notificarObservadores();
                             return;
                         }
                         resultado = num1 / num2;
                         break;
                 }
 
-                // Converter resultado para string com vírgula (formato brasileiro)
                 String resultadoFormatado = String.valueOf(resultado).replace(".", ",");
-
                 valor = resultadoFormatado;
-                operacaoPendente = "";
                 substituir = true;
-
-                } catch (NumberFormatException e) {
-                    valor = "Erro";
+            } catch (NumberFormatException e) {
+                valor = "Erro";
             }
+            notificarObservadores();
+        }
+    }
+
+
+    private static Memoria instancia;
+
+    private Memoria() {
+        // código de inicialização
+    }
+
+    public void adicionarObservadores(MemoriaObservador observadorRecebido) {
+        observadoresList.add(observadorRecebido);
+    }
+
+    private void notificarObservadores(){
+        for(MemoriaObservador x : observadoresList){
+            x.valorAlterado(getValor());
         }
     }
 
     public String getValor() {
         return valor;
+    }
+
+    public static Memoria getInstancia() {
+        if (instancia == null) {
+            instancia = new Memoria();
+        }
+        return instancia;
     }
 }
 

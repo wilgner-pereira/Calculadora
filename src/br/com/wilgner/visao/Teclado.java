@@ -1,5 +1,7 @@
 package br.com.wilgner.visao;
 
+import br.com.wilgner.modelo.Memoria;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -49,18 +51,18 @@ public class Teclado extends JPanel {
         c.gridy = y;
         c.gridwidth = span;
         Botao botao = new Botao(texto, cor);
+        botao.addActionListener(e -> Memoria.getInstancia().processarComando(texto));
+
         add(botao, c);
         c.gridx = 1;
-
     }
     private void adicionarBotao(String texto, Color cor, GridBagConstraints c, int x, int y) {
         c.gridx = x;
         c.gridy = y;
 
         Botao botao = new Botao(texto, cor);
+        botao.addActionListener(e -> Memoria.getInstancia().processarComando(texto));
         add(botao, c);
-
-
     }
 }
 

@@ -1,4 +1,5 @@
 package br.com.wilgner.modelo;
 
-public class MemoriaObservador {
+public interface MemoriaObservador {
+    public void valorAlterado(String novoValor);
 }

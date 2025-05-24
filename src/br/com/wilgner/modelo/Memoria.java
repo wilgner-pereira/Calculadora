@@ -5,19 +5,27 @@ import java.util.List;
 
 public class Memoria {
     private String valor = "0";
-    private String valorAnterior;
-    private String valorFinal;
-    private String operacaoPendente;
+    private String valorAnterior = "";
+    private String operacaoPendente = "";
     private boolean substituir;
 
     private final List<MemoriaObservador> observadoresList = new ArrayList<>();
 
     public void processarComando(String texto) {
+        if (valor.equals("Erro")) {
+            // Se estiver em "Erro" e o usuário digitar um número ou vírgula, resetar valor para começar novo número
+            if (texto.matches("[0-9]") || texto.equals(",")) {
+                valor = "0"; // ou "" se preferir iniciar vazio
+                substituir = false; // para permitir adicionar os dígitos
+            } else if (!texto.equals("AC")) {
+                // Ignora qualquer comando que não seja número, vírgula ou AC enquanto estiver no erro
+                return;
+            }
+        }
         if (texto.equals("AC")) {
             valor = "0";
             notificarObservadores();
             valorAnterior = "";
-            valorFinal = "";
             operacaoPendente = "";
         } else if (texto.equals("+/-")) {
             if (valor.startsWith("-")) {

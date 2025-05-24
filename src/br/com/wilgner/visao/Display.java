@@ -10,7 +10,7 @@ public class Display extends JPanel implements MemoriaObservador {
     private final JLabel label;
     public Display() {
         setBackground(new Color(46, 49, 50));
-        label = new JLabel("teste");
+        label = new JLabel("0");
         label.setForeground(Color.WHITE);
         label.setFont(new Font("courier", Font.PLAIN, 30));
         setBorder(BorderFactory.createMatteBorder(2, 2, 0, 2, Color.BLACK));

@@ -1,4 +1,4 @@
-package visao;
+package br.com.wilgner.visao;
 
 import javax.swing.*;
 import java.awt.*;

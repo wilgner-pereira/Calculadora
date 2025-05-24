@@ -8,12 +8,13 @@ public class Calculadora extends JFrame {
     public Calculadora() {
 
         organizarLayout();
-
+        getContentPane().setBackground(Color.BLACK);
         setVisible(true);
         setTitle("Calculadora");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(232, 322);
         setLocationRelativeTo(null);
+
     }
 
     private void organizarLayout() {

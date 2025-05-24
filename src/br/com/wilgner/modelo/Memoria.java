@@ -45,9 +45,9 @@ public class Memoria {
             substituir = true;
         } else if (texto.equals("=")) {
             try {
-                double num1 = Double.parseDouble(valorAnterior.replace(",", "."));
-                double num2 = Double.parseDouble(valor.replace(",", "."));
-                double resultado = 0;
+                    double num1 = Double.parseDouble(valorAnterior.replace(",", "."));
+                    double num2 = Double.parseDouble(valor.replace(",", "."));
+                    double resultado = 0;
 
                 switch (operacaoPendente) {
                     case "+":
@@ -69,8 +69,13 @@ public class Memoria {
                         break;
                 }
 
-                String resultadoFormatado = String.valueOf(resultado).replace(".", ",");
-                valor = resultadoFormatado;
+                if (resultado == (int) resultado) {
+                    // É um número inteiro, exibe sem casas decimais
+                    valor = String.valueOf((int) resultado);
+                } else {
+                    // Tem casas decimais, exibe com vírgula
+                    valor = String.valueOf(resultado).replace(".", ",");
+                }
                 substituir = true;
             } catch (NumberFormatException e) {
                 valor = "Erro";

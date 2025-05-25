@@ -1,5 +1,6 @@
 package br.com.wilgner.visao;
 
+import br.com.wilgner.controle.MemoriaControle;
 import br.com.wilgner.modelo.Memoria;
 
 import javax.swing.*;
@@ -9,6 +10,7 @@ public class Teclado extends JPanel {
     private final Color COR_CINZA_ESCURO = new Color(68,68,68);
     private final Color COR_CINZA_CLARO = new Color(99,99,99);
     private final Color COR_LARANJA = new Color(242,163,60);
+    private final MemoriaControle controle = new MemoriaControle();
 
     public Teclado() {
         GridBagLayout layout = new GridBagLayout();
@@ -52,7 +54,7 @@ public class Teclado extends JPanel {
         c.gridy = y;
 
         Botao botao = new Botao(texto, cor);
-        botao.addActionListener(e -> Memoria.getInstancia().processarComando(texto));
+        botao.addActionListener(e-> controle.executarComando(texto));
         add(botao, c);
     }
 }

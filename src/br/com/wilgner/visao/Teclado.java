@@ -19,8 +19,9 @@ public class Teclado extends JPanel {
         c.weightx = 1;
         c.weighty = 1;
         c.fill = GridBagConstraints.BOTH;
-
-        adicionarBotao("AC", COR_CINZA_ESCURO, (GridBagConstraints) c.clone(), 0, 0, 2);
+        c.gridwidth = 2;
+        adicionarBotao("AC", COR_CINZA_ESCURO, (GridBagConstraints) c.clone(), 0, 0);
+        c.gridwidth = 1;
         adicionarBotao("+/-", COR_CINZA_ESCURO, (GridBagConstraints) c.clone(), 2, 0);
         adicionarBotao("/", COR_LARANJA, (GridBagConstraints) c.clone(), 3, 0);
 
@@ -41,19 +42,11 @@ public class Teclado extends JPanel {
 
         adicionarBotao("0", COR_CINZA_CLARO, (GridBagConstraints) c.clone(), 0, 4);
         adicionarBotao(",", COR_CINZA_CLARO, (GridBagConstraints) c.clone(), 1, 4);
-        adicionarBotao("=", COR_LARANJA, (GridBagConstraints) c.clone(), 2, 4, 2);
+        c.gridwidth = 2;
+        adicionarBotao("=", COR_LARANJA, (GridBagConstraints) c.clone(), 2, 4);
+        c.gridwidth = 1;
     }
 
-
-    private void adicionarBotao(String texto, Color cor, GridBagConstraints c, int x, int y, int span) {
-        c.gridx = x;
-        c.gridy = y;
-        c.gridwidth = span;
-        Botao botao = new Botao(texto, cor);
-        botao.addActionListener(e -> Memoria.getInstancia().processarComando(texto));
-
-        add(botao, c);
-    }
     private void adicionarBotao(String texto, Color cor, GridBagConstraints c, int x, int y) {
         c.gridx = x;
         c.gridy = y;
